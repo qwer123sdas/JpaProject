@@ -31,7 +31,7 @@ public class Mileage {
     // == 생성 메서드 == //
     public Mileage() {}
     @Builder
-    private Mileage(int point, String comment,MileageStatus status){
+    private Mileage(int point, String comment, MileageStatus status){
         this.point = point;
         this.comment = comment;
         this.status = status;
