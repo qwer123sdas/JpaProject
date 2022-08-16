@@ -22,6 +22,9 @@ public class Mileage {
     private LocalDateTime inserted;
     private String comment;
 
+    @Enumerated(EnumType.STRING)
+    private MileageStatus status; // ADD, DELETE, MODIFY
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
