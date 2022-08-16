@@ -21,4 +21,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Mileage> mileages = new ArrayList<>();
+
+
+    // == 비지니스 로직 == //
+    /*
+     * 마일리지 총액 계산
+     * */
+    public int getTotalMileage(){
+        int totalMileage = mileages.stream()
+                                .mapToInt(Mileage::getPoint)
+                                .sum();
+        return totalMileage;
+    }
 }
