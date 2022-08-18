@@ -13,15 +13,21 @@ import java.util.UUID;
 @Entity
 @Getter
 public class Review {
-    @Id @GeneratedValue(generator = "uuid2")
+    @Id
+    @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name="review_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @Column(columnDefinition = "BINARY(16)")
     private UUID userId;
+
+    @Column(columnDefinition = "BINARY(16)")
     private UUID placeId;
 
     private String content;
+
+    @Enumerated(EnumType.STRING)
     private ReviewStatus status;
 
 /*
@@ -34,8 +40,8 @@ public class Review {
     private Place place;
 */
 
-    @OneToMany(mappedBy = "review")
-    private List<Photo> attachedPhotos = new ArrayList<>();
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    private final List<Photo> attachedPhotos = new ArrayList<>();
 
 
     // == 생성 메서드 == //
@@ -50,9 +56,9 @@ public class Review {
         this.content = content;
     }
 
-    public static Review addReview(UUID userId, UUID placeId, String content, String action){
+    public static Review addReview(UUID userId, UUID placeId, String content){
         Review review = new Review(userId, placeId,content);
-        review.id = UUID.randomUUID();
+        //review.id = UUID.randomUUID();
         review.status = ReviewStatus.ADD;
         return review;
     }

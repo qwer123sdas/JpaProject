@@ -1,9 +1,8 @@
 package com.example.jpaproject.repository;
 
 import com.example.jpaproject.domain.Mileage;
-import com.example.jpaproject.domain.User;
+import com.example.jpaproject.domain.Users;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,7 @@ import java.util.UUID;
 public class MileageRepository {
 
     private final EntityManager em;
-    
+
     /*
     * 마일리지 적립
     * */
@@ -30,14 +29,17 @@ public class MileageRepository {
         return em.find(Mileage.class, mileageId);
     }
 
+    public List<Mileage> getAllMileageByUserId(UUID userId) {
+        return em.createQuery("select m from Mileage m where m.userId = :userId", Mileage.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
     /*
     * 회원 마일리지 로그기록 가져오기
     * */
-    public List<User> findAll(UUID userId){
-        return em.createQuery("select u from User u where u.id = : id", User.class)
-                .setParameter("id", userId)
-                .getResultList();
-    }
+
+
     // 나중에 여력되면 페이징 처리까지..?
 
 }

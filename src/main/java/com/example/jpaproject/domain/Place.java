@@ -15,7 +15,5 @@ public class Place {
     @Column(name="place_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @OneToMany(mappedBy = "place")
-    List<Review> reviews = new ArrayList<>();
 
 }

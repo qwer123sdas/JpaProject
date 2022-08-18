@@ -12,21 +12,24 @@ import java.util.UUID;
 @Getter
 public class Mileage {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name="mileage_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID userId;
+
     private int point;
-    private LocalDateTime inserted;
-    private String comment;
+
+    private String reason;
 
     @Enumerated(EnumType.STRING)
     private MileageStatus status; // ADD, DELETE, MODIFY
 
+/*
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+*/
 
     // == 생성 메서드 == //
     /*
@@ -34,16 +37,14 @@ public class Mileage {
     * */
     public Mileage() {}
     @Builder
-    private Mileage(int point, String comment, MileageStatus status){
+    private Mileage(UUID userId, int point, String reason){
+        this.userId = userId;
         this.point = point;
-        this.comment = comment;
-        this.status = status;
+        this.reason = reason;
     }
-    public static Mileage createMileage(int point, String comment){
-        Mileage mileage = Mileage.builder()
-                .point(point)
-                .comment(comment)
-                .build();
+    public static Mileage addMileage(UUID userId, int point, String reason){
+        Mileage mileage = new Mileage(userId, point, reason);
+        mileage.id = UUID.randomUUID();
         return mileage;
     }
 
@@ -51,28 +52,41 @@ public class Mileage {
     /*
     * 포인트 추가
     * */
-    public void addPoint(int point){
+    public void addPoint(int point, String reason){
         this.point += point;
+        this.reason += reason;
     }
 
     /*
      * 포인트 감소
      * */
-    public void removePoint(int point){
+    public void removePoint(int point, String reason){
         int restPoint = this.point - point;
         if(restPoint < 0) {
             // 예외 발생
         }
-        this.point = restPoint;
+        this.point -= restPoint;
+        this.reason += reason;
     }
 
     /*
-    * 정보 수정
+    * 포인트 적립 이유
     * */
-    public void change(String comment){
-        this.comment = comment;
-        this.status = MileageStatus.MODIFY;
+    public void addReason(String reason){
+        this.reason = reason;
     }
+
+    /*
+     * 마일리지 총액 계산
+     * */
+ /*   public int getTotalMileage(){
+        int totalMileage = this.stream()
+                .mapToInt(Mileage::getPoint)
+                .sum();
+        return totalMileage;
+    }*/
+
+
 
     // == 조회 로직 == //
 

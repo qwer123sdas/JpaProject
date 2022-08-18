@@ -21,8 +21,8 @@ public class PhotoService {
             Review review = reviewRepository.findOne(reviewId);
             Photo photo = Photo.builder()
                                 .attachedPhotoId(attachedPhoto)
-                                .review(review)
-                                .build();
+                                        .build();
+
             photoRepository.save(photo);
         }
     }

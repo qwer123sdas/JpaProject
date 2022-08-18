@@ -1,6 +1,6 @@
 package com.example.jpaproject.repository;
 
-import com.example.jpaproject.domain.User;
+import com.example.jpaproject.domain.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +12,12 @@ import java.util.UUID;
 public class UserRepository {
     private final EntityManager em;
 
-    public User findOne(UUID userId){
-        return em.find(User.class, userId);
+    public void save(Users users){
+        em.persist(users);
+    }
+
+    public Users findOne(UUID userId){
+        return em.find(Users.class, userId);
     }
 
 

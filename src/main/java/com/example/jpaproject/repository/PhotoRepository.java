@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,5 +17,13 @@ public class PhotoRepository {
         em.persist(photo);
     }
 
+    public void saveAll(List<Photo> photos){
+        for(Photo photo : photos){
+            em.persist(photo);
+        }
+    }
 
+    public Photo findById(UUID attachedPhotoId) {
+        return em.find(Photo.class, attachedPhotoId);
+    }
 }

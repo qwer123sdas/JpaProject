@@ -35,14 +35,14 @@ public class ReviewRepository {
     public Review findOne(UUID reviewId) {
         return em.find(Review.class, reviewId);
     }
-    public Review exitReview(ReviewDto reviewDto){
+/*    public Review exitReview(ReviewDto reviewDto){
         return em.createQuery("select r from Review r " +
                             "where r.place = :place_Id " +
                             "and r.user = :user_Id", Review.class)
                 .setParameter("place_Id", reviewDto.getPlaceId())
                 .setParameter("user_Id", reviewDto.getUserId())
                 .getSingleResult();
-    }
+    }*/
 
 
 }
