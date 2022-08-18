@@ -1,18 +1,19 @@
 package com.example.jpaproject.repository;
 
-import com.example.jpaproject.domain.Photo;
+import com.example.jpaproject.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
-public class AttachedPhotoRepository {
+public class UserRepository {
     private final EntityManager em;
 
-    public void save(Photo photo){
-        em.persist(photo);
+    public User findOne(UUID userId){
+        return em.find(User.class, userId);
     }
 
 

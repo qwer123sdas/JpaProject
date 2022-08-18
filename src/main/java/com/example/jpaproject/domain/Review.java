@@ -18,10 +18,13 @@ public class Review {
     @Column(name="review_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    private String content;
-    private String action;
-    private LocalDateTime inserted;
+    private UUID userId;
+    private UUID placeId;
 
+    private String content;
+    private ReviewStatus status;
+
+/*
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -29,10 +32,10 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
+*/
 
-    @ManyToOne
-    @JoinColumn(name = "attached_photo_id")
-    private Photo photo;
+    @OneToMany(mappedBy = "review")
+    private List<Photo> attachedPhotos = new ArrayList<>();
 
 
     // == 생성 메서드 == //
@@ -41,16 +44,38 @@ public class Review {
      * */
     public Review() {}
     @Builder
-    private Review(String content, String action){
+    private Review(UUID userId, UUID placeId, String content){
+        this.userId = userId;
+        this.placeId = placeId;
         this.content = content;
-        this.action = action;
     }
-    public static Review createReview(String content, String action){
-        Review review = Review.builder()
-                .content(content)
-                .action(action)
-                .build();
+
+    public static Review addReview(UUID userId, UUID placeId, String content, String action){
+        Review review = new Review(userId, placeId,content);
+        review.id = UUID.randomUUID();
+        review.status = ReviewStatus.ADD;
         return review;
+    }
+
+    // == 비지니스 로직 == //
+    public Review update(UUID userId, UUID placeId, String content){
+        Review review = new Review(userId, placeId,content);
+        return review;
+    }
+
+    public Review remove(UUID userId, UUID placeId, String content){
+        Review review = new Review(userId, placeId,content);
+        return review;
+    }
+
+    // == 사진 로직 == //
+    public void addPhoto(Photo photo){
+        attachedPhotos.add(photo);
+        photo.addReview(this);
+    }
+    public void removePhoto(Photo photo){
+        attachedPhotos.remove(photo);
+        photo.removeReview(null);
     }
 
 

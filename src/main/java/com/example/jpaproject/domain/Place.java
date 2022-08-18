@@ -12,8 +12,6 @@ import java.util.UUID;
 @Getter
 public class Place {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name="place_id", columnDefinition = "BINARY(16)")
     private UUID id;
 

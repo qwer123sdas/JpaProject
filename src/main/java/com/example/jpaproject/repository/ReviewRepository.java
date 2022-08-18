@@ -26,9 +26,15 @@ public class ReviewRepository {
         }
     }
 
+
+
     /*
     *  단건 조회(유저아이디와 장소 아이디로)
     * */
+
+    public Review findOne(UUID reviewId) {
+        return em.find(Review.class, reviewId);
+    }
     public Review exitReview(ReviewDto reviewDto){
         return em.createQuery("select r from Review r " +
                             "where r.place = :place_Id " +
@@ -37,4 +43,6 @@ public class ReviewRepository {
                 .setParameter("user_Id", reviewDto.getUserId())
                 .getSingleResult();
     }
+
+
 }
