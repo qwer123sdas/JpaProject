@@ -2,6 +2,7 @@ package com.example.jpaproject.repository;
 
 import com.example.jpaproject.domain.Mileage;
 import com.example.jpaproject.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,22 +11,25 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
+@RequiredArgsConstructor
 public class MileageRepository {
 
-    @Autowired
-    private EntityManager em;
+    private final EntityManager em;
+    
     /*
     * 마일리지 적립
     * */
     public void save(Mileage mileage){
         em.persist(mileage);
     }
+
     /*
     * 회원 마일리지 총액 가져오기
     * */
     public Mileage findOne(UUID mileageId){
         return em.find(Mileage.class, mileageId);
     }
+
     /*
     * 회원 마일리지 로그기록 가져오기
     * */

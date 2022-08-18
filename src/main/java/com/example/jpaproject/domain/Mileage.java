@@ -29,6 +29,9 @@ public class Mileage {
     User user;
 
     // == 생성 메서드 == //
+    /*
+    * 빌더와 메소드를 통해 구현
+    * */
     public Mileage() {}
     @Builder
     private Mileage(int point, String comment, MileageStatus status){

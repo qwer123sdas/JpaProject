@@ -1,5 +1,6 @@
 package com.example.jpaproject.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -32,5 +33,26 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "attached_photo_id")
     private Photo photo;
+
+
+    // == 생성 메서드 == //
+    /*
+     * 빌더와 메소드를 통해 구현
+     * */
+    public Review() {}
+    @Builder
+    private Review(String content, String action){
+        this.content = content;
+        this.action = action;
+    }
+    public static Review createReview(String content, String action){
+        Review review = Review.builder()
+                .content(content)
+                .action(action)
+                .build();
+        return review;
+    }
+
+
 
 }
