@@ -62,13 +62,6 @@ public class Review {
         this.first = first;
     }
 
-    /*public static Review addReview(UUID userId, UUID placeId, String content){
-        Review review = new Review(userId, placeId,content);
-        //review.id = UUID.randomUUID();
-        review.status = ReviewStatus.ADD;
-        return review;
-    }*/
-
     // == 비지니스 로직 == //
     public Review update(Users users, Place place, String content){
         Review review = Review.builder()
