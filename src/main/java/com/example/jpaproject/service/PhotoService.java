@@ -16,9 +16,9 @@ public class PhotoService {
     private final PhotoRepository photoRepository;
     private final ReviewRepository reviewRepository;
 
-    public void save(List<UUID> attachedPhotos, UUID reviewId) {
+    public void attachPhoto(List<UUID> attachedPhotos, UUID reviewId) {
         for(UUID attachedPhoto : attachedPhotos){
-            Review review = reviewRepository.findOne(reviewId);
+            Review review = reviewRepository.findById(reviewId).orElseThrow(RuntimeException::new);
             Photo photo = Photo.builder()
                                 .attachedPhotoId(attachedPhoto)
                                         .build();
@@ -26,4 +26,5 @@ public class PhotoService {
             photoRepository.save(photo);
         }
     }
+
 }

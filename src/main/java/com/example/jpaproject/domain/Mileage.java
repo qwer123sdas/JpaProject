@@ -12,6 +12,8 @@ import java.util.UUID;
 @Getter
 public class Mileage {
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name="mileage_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
@@ -44,7 +46,6 @@ public class Mileage {
     }
     public static Mileage addMileage(UUID userId, int point, String reason){
         Mileage mileage = new Mileage(userId, point, reason);
-        mileage.id = UUID.randomUUID();
         return mileage;
     }
 

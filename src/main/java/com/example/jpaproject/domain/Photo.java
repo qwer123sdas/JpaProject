@@ -26,8 +26,9 @@ public class Photo {
 
     }
     @Builder
-    private Photo(UUID attachedPhotoId){
+    private Photo(UUID attachedPhotoId, Review review){
         this.id = attachedPhotoId;
+        this.review =review;
     }
 
     // == 비지니스 로직 == //
@@ -38,11 +39,4 @@ public class Photo {
         return photo;
     }
 
-    public void addReview(Review review){
-        this.review = review;
-    }
-
-    public void removeReview(Review review) {
-        this.review = review;
-    }
 }

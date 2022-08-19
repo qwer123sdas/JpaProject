@@ -1,5 +1,6 @@
 package com.example.jpaproject.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +15,17 @@ public class Place {
     @Id
     @Column(name="place_id", columnDefinition = "BINARY(16)")
     private UUID id;
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    public Place() {
+
+    }
+    @Builder
+    private Place(UUID id){
+        this.id = id;
+    }
 
 
 }
