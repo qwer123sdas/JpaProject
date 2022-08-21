@@ -64,10 +64,7 @@ public class ReviewServiceTest {
         Users user = userRepository.findOne(userId); //DataIntegrityViolationException
 
         //then
-        List<Mileage> mileageList = mileageRepository.getAllMileageByUserId(user.getId());
-        int result = mileageList.stream()
-                        .mapToInt(Mileage::getPoint)
-                                .sum();
+        int result = user.getTotalPoint();
         assertThat(result).isEqualTo(3);
         assertThat(registerd.getContent()).isEqualTo(reviewDto.getContent());
         // assertThat(registerd.getAttachedPhotos()).containsExactly(photos.get(1), photos.get(0));

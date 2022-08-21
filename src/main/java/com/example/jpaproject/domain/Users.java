@@ -2,7 +2,6 @@ package com.example.jpaproject.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,9 +13,13 @@ public class Users {
     @Id
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private UUID id;
+    private int totalPoint;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Mileage> mileages;
 
     public Users() {
 
@@ -24,5 +27,9 @@ public class Users {
     @Builder
     private Users(UUID id){
         this.id = id;
+    }
+
+    public void setPoint(int point){
+        this.totalPoint = point;
     }
 }

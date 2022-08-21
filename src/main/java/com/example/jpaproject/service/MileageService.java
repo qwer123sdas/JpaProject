@@ -3,7 +3,6 @@ package com.example.jpaproject.service;
 import com.example.jpaproject.domain.Mileage;
 import com.example.jpaproject.domain.Review;
 import com.example.jpaproject.domain.Users;
-import com.example.jpaproject.dto.ReviewDto;
 import com.example.jpaproject.repository.MileageRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -17,11 +16,14 @@ public class MileageService {
 
     private final MileageRepository mileageRepository;
 
-    public void updatePoints(Users users, Review review) {
+    @Transactional
+    public void addPoints(Users users, Review review) {
         int points = calculatePoints(review);
 
+        users.setPoint(points);
+
         Mileage mileage = Mileage.builder()
-                        .userId(users.getId())
+                        .users(users)
                         .point(points)
                         .reason(String.format(
                             "Added %d points by registering a review.",
@@ -29,6 +31,11 @@ public class MileageService {
                         .build();
 
         mileageRepository.save(mileage);
+    }
+
+    public void updatePoint(Users users, Review review) {
+        //mileageRepository.findOne();
+
     }
 
 
@@ -43,4 +50,6 @@ public class MileageService {
         if (review.isFirst()) points += 1;
         return points;
     }
+
+
 }

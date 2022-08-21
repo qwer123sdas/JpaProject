@@ -47,7 +47,7 @@ public class ReviewService {
                 .build();
         review.addAttachPhotos(reviewDto.getAttachedPhotoIds());
        // 마일리지
-        mileageService.updatePoints(users, review);
+        mileageService.addPoints(users, review);
 
         // == 저장 == //
        return reviewRepository.save(review);
@@ -57,9 +57,19 @@ public class ReviewService {
     * 리뷰 수정
     * */
     @Transactional
-    public void updateReview(UUID reviewID,ReviewDto reviewDto){
-        Review review = reviewRepository.findById(reviewID).orElseThrow(RuntimeException::new);
-        List<Photo> 
+    public void updateReview(UUID reviewId,ReviewDto reviewDto){
+        // == 엔티티 조회 == //
+        Users users = userRepository.findOne(reviewDto.getUserId());
+        Review review = reviewRepository.findById(reviewId).orElseThrow(RuntimeException::new);
+        List<Photo> attachedPhotos = photoRepository.findAllById(reviewDto.getAttachedPhotoIds());
+
+        // == 엔티티 수정 == //
+        review.update(reviewDto.getContent(), ReviewStatus.MODIFY);
+
+        // 마일리지
+        mileageService.updatePoint(users, review);
+
+
     }
 
 

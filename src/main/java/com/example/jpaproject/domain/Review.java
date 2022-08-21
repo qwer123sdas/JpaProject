@@ -30,7 +30,6 @@ public class Review {
     @Enumerated(EnumType.STRING)
     private ReviewStatus status;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
@@ -63,20 +62,19 @@ public class Review {
     }
 
     // == 비지니스 로직 == //
-    public Review update(Users users, Place place, String content){
+    public Review update(String content, ReviewStatus status){
         Review review = Review.builder()
-                .users(users)
-                .place(place)
                 .content(content)
+                .status(status)
                 .build();
         return review;
     }
 
-    public Review remove(Users users, Place place, String content){
+    public Review remove(Place place, String content, ReviewStatus status){
         Review review = Review.builder()
-                .users(users)
                 .place(place)
                 .content(content)
+                .status(status)
                 .build();
         return review;
     }
