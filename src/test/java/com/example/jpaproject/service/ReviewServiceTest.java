@@ -4,6 +4,7 @@ import com.example.jpaproject.dto.ReviewDto;
 import com.example.jpaproject.repository.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -51,7 +52,8 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void 테스트_저장1() throws Exception{
+    @DisplayName("기존 글 1자 이상, 사진 2장, 첫번째 리뷰 : 총 3점")
+    public void 리뷰_저장1() throws Exception{
         //given
         UUID userId = UUID.randomUUID();
         userRepository.save(user.builder().id(userId).build());
@@ -88,7 +90,8 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void 게시글_수정1() throws Exception{
+    @DisplayName("기존 글 1자 이상, 사진 2 -> 0장, 첫번째 리뷰유지 : 총 2점")
+    public void 리뷰_수정1() throws Exception{
         //given
         UUID userId = UUID.randomUUID();
         UUID placeId = UUID.randomUUID();
@@ -129,6 +132,41 @@ public class ReviewServiceTest {
         assertThat(totalPoint).isEqualTo(2);
         assertThat(reviewPoint).isEqualTo(2);
         assertThat("modify").isEqualTo(modifyDto.getContent());
+    }
+
+    @Test
+    @DisplayName("리뷰삭제")
+    public void 리뷰_삭제() throws Exception{
+        //given
+        UUID userId = UUID.randomUUID();
+        UUID placeId = UUID.randomUUID();
+        UUID reviewId = UUID.randomUUID();
+        List<Photo> photos = Arrays.asList(p1.builder().attachedPhotoId(UUID.randomUUID()).build(),
+                p2.builder().attachedPhotoId(UUID.randomUUID()).build());
+        List<UUID> attachedPhotoIds = photos.stream().map(Photo::getId).collect(Collectors.toList());
+
+        userRepository.save(user.builder().id(userId).build());
+        placeRepository.save(place.builder().id(placeId).build());
+
+        // Write first review : 3 points
+        Review registerd = reviewService.registerReview(ReviewDto.builder()
+                .reviewId(reviewId)
+                .userId(userId)
+                .placeId(placeId)
+                .attachedPhotoIds(attachedPhotoIds)
+                .content("first")
+                .build()
+        );
+
+        //when
+        // 왜 reviewId는 NULL이 나올까??????????/
+        reviewService.deleteReview(registerd.getId());
+        Users user = userRepository.findOne(userId);
+
+        //then
+        int totalPoint = user.getTotalPoint();
+
+        assertThat(totalPoint).isEqualTo(0);
 
     }
 

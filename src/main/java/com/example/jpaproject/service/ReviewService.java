@@ -68,8 +68,12 @@ public class ReviewService {
 
         // 마일리지
         mileageService.updatePoint(users, review);
+    }
 
-
+    @Transactional
+    public void deleteReview(UUID reviewId){
+        mileageService.withdrawPoints(reviewId);
+        reviewRepository.deleteById(reviewId);
     }
 
 

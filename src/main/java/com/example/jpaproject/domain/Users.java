@@ -29,7 +29,7 @@ public class Users {
         this.id = id;
     }
 
-    public void setPoint(int point){
+    public void setTotalPoint(int point){
         this.totalPoint = point;
     }
 }
