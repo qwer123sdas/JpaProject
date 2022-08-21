@@ -26,6 +26,7 @@ public class Review {
     private UUID placeId;*/
 
     private String content;
+    private int point;
 
     @Enumerated(EnumType.STRING)
     private ReviewStatus status;
@@ -62,12 +63,10 @@ public class Review {
     }
 
     // == 비지니스 로직 == //
-    public Review update(String content, ReviewStatus status){
-        Review review = Review.builder()
-                .content(content)
-                .status(status)
-                .build();
-        return review;
+    public void update(String content, List<Photo> attachedPhotos,  ReviewStatus status){
+        this.content = content;
+        this.attachedPhotos = attachedPhotos;
+        this.status = status;
     }
 
     public Review remove(Place place, String content, ReviewStatus status){
@@ -91,6 +90,11 @@ public class Review {
         }
 
         this.attachedPhotos.addAll(reviewPhotos);
+    }
+
+    // == 포인트 로직 == //
+    public void setPoint(int point){
+        this.point = point;
     }
 
 

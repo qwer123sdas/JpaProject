@@ -64,7 +64,7 @@ public class ReviewService {
         List<Photo> attachedPhotos = photoRepository.findAllById(reviewDto.getAttachedPhotoIds());
 
         // == 엔티티 수정 == //
-        review.update(reviewDto.getContent(), ReviewStatus.MODIFY);
+        review.update(reviewDto.getContent(), attachedPhotos, ReviewStatus.MODIFY);
 
         // 마일리지
         mileageService.updatePoint(users, review);

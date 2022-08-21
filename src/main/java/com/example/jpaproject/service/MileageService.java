@@ -20,7 +20,8 @@ public class MileageService {
     public void addPoints(Users users, Review review) {
         int points = calculatePoints(review);
 
-        users.setPoint(points);
+        users.setPoint(users.getTotalPoint() + points);
+        review.setPoint(points);
 
         Mileage mileage = Mileage.builder()
                         .users(users)
@@ -34,7 +35,29 @@ public class MileageService {
     }
 
     public void updatePoint(Users users, Review review) {
-        //mileageRepository.findOne();
+        int modifiedPoint = calculatePoints(review); // 2
+        System.out.println("totalPoint : " + modifiedPoint);
+        int diff = modifiedPoint - users.getTotalPoint(); // 2 - 3 = -1
+        System.out.println("diff : "+ diff);
+
+        if(diff == 0){
+            return;
+        }
+
+        users.setPoint(users.getTotalPoint() + diff);
+        review.setPoint(modifiedPoint);
+
+        String verb = diff > 0 ? "Added": "Withdrew";
+        Mileage mileage = Mileage.builder()
+                .users(users)
+                .point(diff)
+                .reason(String.format(
+                        "%s %d points by registering a review.",
+                        verb,
+                        diff))
+                .build();
+
+        mileageRepository.save(mileage);
 
     }
 
