@@ -33,9 +33,7 @@ public class ReviewService {
         List<Photo> attachedPhotos = photoRepository.findAllById(reviewDto.getAttachedPhotoIds());
 
         // == 리뷰 중복 검사 == //
-        if(reviewRepository.existsByPlaceAndAndUsers(place, users)){
-            throw new IllegalStateException("이미 작성한 리뷰가 있습니다.");
-        }
+        validateFirstReviewByUser(place, users);
 
         // == 정보 생성 == //
         Review review = Review.builder()
@@ -52,6 +50,12 @@ public class ReviewService {
         mileageService.addPoints(users, review);
         // == 저장 == //
        return reviewRepository.save(review);
+    }
+
+    private void validateFirstReviewByUser(Place place, Users users){
+        if(reviewRepository.existsByPlaceAndAndUsers(place, users)){
+            throw new IllegalStateException("이미 작성한 리뷰가 있습니다.");
+        }
     }
 
     /*
@@ -79,9 +83,5 @@ public class ReviewService {
 
 
 
-
-/*    private boolean isFirstReviewAtPlace(UUID placeId, Review review){
-        return reviewRepository.existsBy
-    }*/
 
 }

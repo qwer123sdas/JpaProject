@@ -18,7 +18,7 @@ public class ReviewDto {
     private UUID reviewId;
     @NotNull(message = "유저아이디가 없습니다.")
     private UUID userId;
-    @NotNull(message = "장소가 없습니다.")
+    @NotNull(message = "해당 장소가 없습니다.")
     private UUID placeId;
 
     @Enumerated(EnumType.STRING)
@@ -30,11 +30,13 @@ public class ReviewDto {
 
     // == 생성자 메서드 == //
     @Builder
-    private ReviewDto(UUID reviewId, UUID userId, UUID placeId, String content, List<UUID> attachedPhotoIds){
+    private ReviewDto(UUID reviewId, UUID userId, UUID placeId,
+                      String content, ReviewStatus status, List<UUID> attachedPhotoIds){
         this.reviewId = reviewId;
         this.userId = userId;
         this.placeId = placeId;
         this.content = content;
+        this.status = status;
         this.attachedPhotoIds = attachedPhotoIds;
     }
     public static ReviewDto createReviewDto(UUID userId, UUID placeId, String content){

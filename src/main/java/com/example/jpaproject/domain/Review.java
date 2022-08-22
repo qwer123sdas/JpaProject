@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class Review {
 
     @Column(columnDefinition = "BINARY(16)")
     private UUID placeId;*/
-
+    @NotBlank(message = "공백만 입력할 수 없습니다.")
     private String content;
     private int point;
 

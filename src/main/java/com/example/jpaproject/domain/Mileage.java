@@ -54,32 +54,7 @@ public class Mileage {
     }
 
     // == 비지니스 로직 == //
-    /*
-    * 포인트 추가
-    * */
-    public void addPoint(int point, String reason){
-        this.point += point;
-        this.reason += reason;
-    }
 
-    /*
-     * 포인트 감소
-     * */
-    public void removePoint(int point, String reason){
-        int restPoint = this.point - point;
-        if(restPoint < 0) {
-            // 예외 발생
-        }
-        this.point -= restPoint;
-        this.reason += reason;
-    }
-
-    /*
-    * 포인트 적립 이유
-    * */
-    public void addReason(String reason){
-        this.reason = reason;
-    }
 
     /*
      * 마일리지 총액 계산
