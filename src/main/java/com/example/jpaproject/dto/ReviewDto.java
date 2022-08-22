@@ -1,9 +1,7 @@
 package com.example.jpaproject.dto;
 
 import com.example.jpaproject.domain.ReviewStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class ReviewDto {
     @NotNull(message = "리뷰아이디가 없습니다.")
     private UUID reviewId;
@@ -22,7 +21,7 @@ public class ReviewDto {
     private UUID placeId;
 
     @Enumerated(EnumType.STRING)
-    private ReviewStatus status;
+    private ReviewStatus action;
     @NotBlank(message = "공백만 입력할 수 없습니다.")
     private String content;
     private List<UUID> attachedPhotoIds;
@@ -31,12 +30,12 @@ public class ReviewDto {
     // == 생성자 메서드 == //
     @Builder
     private ReviewDto(UUID reviewId, UUID userId, UUID placeId,
-                      String content, ReviewStatus status, List<UUID> attachedPhotoIds){
+                      String content, ReviewStatus action, List<UUID> attachedPhotoIds){
         this.reviewId = reviewId;
         this.userId = userId;
         this.placeId = placeId;
         this.content = content;
-        this.status = status;
+        this.action = action;
         this.attachedPhotoIds = attachedPhotoIds;
     }
     public static ReviewDto createReviewDto(UUID userId, UUID placeId, String content){
@@ -46,7 +45,7 @@ public class ReviewDto {
                 .content(content)
                 .build();
         review.reviewId = UUID.randomUUID();
-        review.status = ReviewStatus.ADD;
+        review.action = ReviewStatus.ADD;
         return review;
     }
 

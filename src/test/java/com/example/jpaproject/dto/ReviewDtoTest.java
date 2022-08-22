@@ -57,7 +57,7 @@ public class ReviewDtoTest {
                 .userId(userId)
                 .content(" ")
                 .attachedPhotoIds(new ArrayList<>())
-                .status(ReviewStatus.ADD)
+                .action(ReviewStatus.ADD)
                 .build();
 
         //when

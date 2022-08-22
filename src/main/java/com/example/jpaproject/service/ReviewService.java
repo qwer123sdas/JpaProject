@@ -62,10 +62,10 @@ public class ReviewService {
     * 리뷰 수정
     * */
     @Transactional
-    public void updateReview(ReviewDto reviewDto){
+    public void updateReview(UUID reviewId,ReviewDto reviewDto){
         // == 엔티티 조회 == //
         Users users = userRepository.findOne(reviewDto.getUserId());
-        Review review = reviewRepository.findById(reviewDto.getReviewId()).orElseThrow(RuntimeException::new);
+        Review review = reviewRepository.findById(reviewId).orElseThrow(RuntimeException::new);
         List<Photo> attachedPhotos = photoRepository.findAllById(reviewDto.getAttachedPhotoIds());
 
         // == 엔티티 수정 == //
