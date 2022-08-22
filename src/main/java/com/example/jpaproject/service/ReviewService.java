@@ -27,14 +27,15 @@ public class ReviewService {
     * */
     @Transactional
     public Review registerReview(ReviewDto reviewDto){
-/*        if(reviewRepository.exitReview(reviewDto) == null){
-            // throw
-        }*/
-
         // == 엔티티 조회 == //
         Users users = userRepository.findOne(reviewDto.getUserId());
         Place place = placeRepository.findById(reviewDto.getPlaceId()).orElseThrow(RuntimeException::new);
         List<Photo> attachedPhotos = photoRepository.findAllById(reviewDto.getAttachedPhotoIds());
+
+        // == 리뷰 중복 검사 == //
+        if(reviewRepository.existsByPlaceAndAndUsers(place, users)){
+            throw new IllegalStateException("이미 작성한 리뷰가 있습니다.");
+        }
 
         // == 정보 생성 == //
         Review review = Review.builder()
@@ -46,9 +47,9 @@ public class ReviewService {
                 .first(!reviewRepository.existsByPlace(place))
                 .build();
         review.addAttachPhotos(reviewDto.getAttachedPhotoIds());
-       // 마일리지
-        mileageService.addPoints(users, review);
 
+        // 마일리지
+        mileageService.addPoints(users, review);
         // == 저장 == //
        return reviewRepository.save(review);
     }

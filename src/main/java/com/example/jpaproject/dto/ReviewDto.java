@@ -7,21 +7,24 @@ import lombok.Setter;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
 @Getter @Setter
 public class ReviewDto {
-
-    private UUID reviewId; // review_id
+    @NotNull(message = "리뷰아이디가 없습니다.")
+    private UUID reviewId;
+    @NotNull(message = "유저아이디가 없습니다.")
     private UUID userId;
+    @NotNull(message = "장소가 없습니다.")
     private UUID placeId;
-
-    private String content;
 
     @Enumerated(EnumType.STRING)
     private ReviewStatus status;
-
+    @NotBlank(message = "공백만 입력할 수 없습니다.")
+    private String content;
     private List<UUID> attachedPhotoIds;
 
 
