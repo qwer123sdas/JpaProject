@@ -31,12 +31,5 @@ public class Photo {
         this.review =review;
     }
 
-    // == 비지니스 로직 == //
-    public Photo addPhoto(UUID attached_photo_id){
-        Photo photo = Photo.builder()
-                .attachedPhotoId(attached_photo_id)
-                .build();
-        return photo;
-    }
 
 }

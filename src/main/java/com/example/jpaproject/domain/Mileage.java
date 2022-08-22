@@ -17,9 +17,6 @@ public class Mileage {
     @Column(name="mileage_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-/*    @Column(columnDefinition = "BINARY(16)")
-    private UUID userId;*/
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
@@ -31,11 +28,6 @@ public class Mileage {
     @Enumerated(EnumType.STRING)
     private MileageStatus status; // ADD, DELETE, MODIFY
 
-/*
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
-*/
 
     // == 생성 메서드 == //
     /*
@@ -47,10 +39,6 @@ public class Mileage {
         this.users = users;
         this.point = point;
         this.reason = reason;
-    }
-    public static Mileage addMileage(Users users, int point, String reason){
-        Mileage mileage = new Mileage(users, point, reason);
-        return mileage;
     }
 
     // == 비지니스 로직 == //

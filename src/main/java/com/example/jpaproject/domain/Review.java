@@ -20,11 +20,6 @@ public class Review {
     @Column(name="review_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-/*    @Column(columnDefinition = "BINARY(16)")
-    private UUID userId;
-
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID placeId;*/
     @NotBlank(message = "공백만 입력할 수 없습니다.")
     private String content;
     private int point;
@@ -70,14 +65,6 @@ public class Review {
         this.status = status;
     }
 
-    public Review remove(Place place, String content, ReviewStatus status){
-        Review review = Review.builder()
-                .place(place)
-                .content(content)
-                .status(status)
-                .build();
-        return review;
-    }
 
     // == 사진 로직 == //
     public void addAttachPhotos(List<UUID> photoIds){
