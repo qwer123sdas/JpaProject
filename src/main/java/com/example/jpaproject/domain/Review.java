@@ -22,7 +22,7 @@ public class Review {
 
     @NotBlank(message = "공백만 입력할 수 없습니다.")
     private String content;
-    //private int point;
+    private int point;
 
     @Enumerated(EnumType.STRING)
     private ReviewStatus status;
@@ -80,6 +80,10 @@ public class Review {
         this.attachedPhotos.addAll(reviewPhotos);
     }
 
+    // == 포인트 로직 == //
+    public void setPoint(int point){
+        this.point = point;
+    }
 
 
 }
