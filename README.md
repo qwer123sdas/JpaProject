@@ -29,6 +29,21 @@
 사진을 1장 이상 첨부 : 1점
 
 </br>
+## 사용 방법
+```
+{
+    "type": "REVIEW",
+    "action": "ADD",
+    "reviewId": "ff35e929-fcf6-11ec-b3c2-0242ac170002",
+    "userId": "31313130-3031-3131-3130-000000000000",
+    "placeId": "8040a09f-fcf6-11ec-b3c2-0242ac170002",
+    "content": "좋아요!",
+    "attachedPhotoIds": ["48925641-70f3-4674-86e6-420bbab59bf8", "cf00ec57-563b-4f0e-b5bf-78ce28738efb"]
+}
+```
+PostMan을 통한, 리뷰 작성 이벤트 API인 POST http://localhost:8080/events
+
+</br>
 
 ## 중점을 둔 부분
 - 도메인 중심 설계</br>
