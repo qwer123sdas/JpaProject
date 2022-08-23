@@ -18,4 +18,4 @@
 </br>
 
 ## ERD
-![ERD](./image/JPA1.png)
+![ERD](./image/JPA.png)
