@@ -25,8 +25,8 @@ public class Mileage {
 
     private String reason;
 
-    @Enumerated(EnumType.STRING)
-    private MileageStatus status; // ADD, DELETE, MODIFY
+/*    @Enumerated(EnumType.STRING)
+    private MileageStatus status; // ADD, DELETE, MODIFY*/
 
 
     // == 생성 메서드 == //
