@@ -81,10 +81,10 @@ public class ReviewServiceTest {
 
         //then
         int result = user.getTotalPoint();
-        int reviewPoint = registerd.getPoint();
+        //int reviewPoint = registerd.getPoint();
 
         assertThat(result).isEqualTo(3);
-        assertThat(reviewPoint).isEqualTo(3);
+        //assertThat(reviewPoint).isEqualTo(3);
         assertThat(registerd.getContent()).isEqualTo(reviewDto.getContent());
         // assertThat(registerd.getAttachedPhotos()).containsExactly(photos.get(1), photos.get(0));
     }
@@ -127,10 +127,10 @@ public class ReviewServiceTest {
 
         //then
         int totalPoint = user.getTotalPoint();
-        int reviewPoint = registerd.getPoint();
+        //int reviewPoint = registerd.getPoint();
 
         assertThat(totalPoint).isEqualTo(2);
-        assertThat(reviewPoint).isEqualTo(2);
+        //assertThat(reviewPoint).isEqualTo(2);
         assertThat("modify").isEqualTo(modifyDto.getContent());
     }
 
