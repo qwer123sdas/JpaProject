@@ -55,9 +55,4 @@ public class Mileage {
     }*/
 
 
-
-    // == 조회 로직 == //
-
-
-
 }
