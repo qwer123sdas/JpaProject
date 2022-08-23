@@ -30,6 +30,7 @@
 
 </br>
 ## 사용 방법
+
 ```
 {
     "type": "REVIEW",
@@ -41,6 +42,7 @@
     "attachedPhotoIds": ["48925641-70f3-4674-86e6-420bbab59bf8", "cf00ec57-563b-4f0e-b5bf-78ce28738efb"]
 }
 ```
+
 PostMan을 통한, 리뷰 작성 이벤트 API인 POST http://localhost:8080/events
 
 </br>
